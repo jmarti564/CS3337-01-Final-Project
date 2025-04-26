@@ -40,3 +40,22 @@ Choose 3 features from below:
 (8) favorite list
 
 (9) your functions...
+
+
+---------------------------------------------------------------------------------------------
+4/26 - 3pm
+
+Revamp bookEx 4/26
+
+(1) About Us (incomplete - about.html)
+(2) Search a book
+(3) Reformat - bootstrap/js
+
+additional features
+(6) comments - incomplete
+(7) rate - not created
+(8) Favorite list - not created
+
+If someone else has a different project they would prefer to start from. Please clone and upload
+
+----------------------------------------------------------------------------------------------
