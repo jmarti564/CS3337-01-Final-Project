@@ -65,8 +65,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                'bookEx.context_processors.featured_books', #index featured books at "/"
-                'bookEx.context_processors.main_menu', #navbar left side
             ],
         },
     },
