@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <!-- conditional If using the search book feature from nav bar -->
+  {% if query %}
+    <h1 class="mb-4">
+      Results for “<span class="text-primary">{{ query }}</span>”
+      ({{ books|length }} found)
+    </h1>
+  <!-- conditional else for clicking on display books from side bar -->
+  {% else %}
+    <h1 class="mb-4">Display Books</h1>
+  {% endif %}
+  <!-- conditional to display books either if given a query or all books  -->
+  {% if books %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Cover</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Owner</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in books %}
+          <tr>
+            <td>
+              <a href="{% url 'book_detail' book.id %}">
+                <img
+                  src="{% static book.static_path %}"
+                  alt="{{ book.name }}"
+                  style="max-height:80px; object-fit:cover;"
+                >
+              </a>
+            </td>
+            <td>{{ book.name }}</td>
+            <td>${{ book.price }}</td>
+            <td>{{ book.username }}</td>
+            <td>
+              <a href="{% url 'book_detail' book.id %}">View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  <!-- else conditional for no books found -->
+  {% else %}
+    <p class="text-muted">No books matched your search.</p>
+  {% endif %}
+{% endblock %}

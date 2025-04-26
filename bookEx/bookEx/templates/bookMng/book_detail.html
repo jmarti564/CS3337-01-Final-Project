@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="row mb-5">
+    <!-- Book image, if image is not found, display alt name-->
+    <div class="col-md-4 col-sm-6 mb-4">
+      <img
+        src="{% static book.static_path %}"
+        alt="{{ book.name }}"
+        class="img-fluid rounded shadow w-100"
+        style="max-height:300px; object-fit:contain;"
+      >
+    </div>
+
+    <!-- Book info - Name, Price, Published, URL, Uploaded by... -->
+    <div class="col-md-8 col-sm-6">
+      <h2>{{ book.name }}</h2>
+      <p><strong>Price:</strong> ${{ book.price }}</p>
+      <p><strong>Published:</strong> {{ book.publishdate }}</p>
+      <p><strong>URL:</strong> <a href="{{ book.web }}" target="_blank">{{ book.web }}</a></p>
+      <p>
+        <strong>Uploaded by:</strong>
+        <!-- if book is created by a user, display username -->
+        {% if book.username %}
+          {{ book.username.username }}
+        <!-- else display Guest -->
+        {% else %}
+          Guest
+        {% endif %}
+      </p>
+      <!-- Delete button -
+      conditional statement to check if the user viewing book_detail is the one
+       who uploaded the book or is admin -->
+      {% if user.is_superuser or user == book.username %}
+        <a href="{% url 'book_delete' book.id %}" class="btn btn-danger">
+          Delete Book
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Comments -->
+  <div class="mb-4">
+    <h4>Comments</h4>
+    {% for comment in comments %}
+      <div class="border rounded p-3 mb-3">
+        <p class="mb-1 d-flex justify-content-between align-items-center">
+          <span>
+            <strong>{{ comment.user.username }}</strong>
+            <small class="text-muted">
+              on {{ comment.created_at|date:"F j, Y, g:i a" }}
+            </small>
+          </span>
+          <!-- Delete button -
+          conditional statement to check if the user viewing book_detail is the one
+           who uploaded the book or is admin -->
+          {% if request.user == comment.user or request.user.is_superuser %}
+            <a
+              href="{% url 'comment_delete' comment.id %}"
+              class="text-danger"
+              onclick="return confirm('Delete this comment?');"
+            >
+              delete
+            </a>
+          {% endif %}
+        </p>
+
+        <p>{{ comment.text }}</p>
+      </div>
+    {% empty %}
+      <p class="text-muted">No comments yet. Be the first to comment!</p>
+    {% endfor %}
+  </div>
+
+  <!-- Add comment - conditional to check if user is logged in-->
+  {% if user.is_authenticated %}
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="comment" class="form-label">Add a Comment</label>
+        <textarea
+          name="comment"
+          id="comment"
+          class="form-control"
+          rows="3"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Post Comment</button>
+    </form>
+  <!-- conditional else for users who are not logged in -->
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to post a comment.</p>
+  {% endif %}
+{% endblock %}

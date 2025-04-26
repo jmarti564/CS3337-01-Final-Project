@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %} Rainforest{% endblock %}</title>
+
+  <!-- Cerulean theme - Bootstrap -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cerulean/bootstrap.min.css"
+  />
+  <!-- CSS  -->
+
+  <link rel="stylesheet" href="{% static 'base.css' %}" />
+</head>
+
+<body>
+  <!-- HEADER NAV BAR-->
+  <header>
+    <div class="bg-dark d-flex align-items-center" style="height:60px; padding:0 1rem;">
+
+      <!-- Left: Logo + “Rainforest” + “About Us” -->
+      <div class="d-flex align-items-center me-3">
+        <a href="#" class="d-inline-block">
+          <img
+            src="{% static 'banner.png' %}"
+            alt="Logo"
+            height="50"
+          >
+        </a>
+        <a href="/" class="nav-link text-white px-0 ms-2">Rainforest</a>
+        <a href="{% url 'about' %}" class="nav-link text-white px-0 ms-3">About Us</a>
+      </div>
+
+      <!-- Center: search bar for books -->
+      <div class="flex-fill px-3">
+        <form class="d-flex flex-grow-1 mx-3" action="{% url 'displaybooks' %}" method="get">          <input
+            type="search"
+            name="q"
+            class="form-control"
+            placeholder="Search a book"
+            aria-label="Search"
+          >
+        </form>
+      </div>
+
+      <!-- Right: Login/Logout -->
+      <div class="d-flex align-items-center ms-3">
+
+        {% if user.is_authenticated %}
+          <span class="navbar-text text-white me-2">{{ user.username }}</span>
+          <form action="{% url 'logout' %}?next=/" method="post" class="d-inline">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="btn btn-sm btn-outline-light"
+            >
+              Logout
+            </button>
+          </form>
+        {% else %}
+          <a
+            href="{% url 'login' %}?next=/"
+            class="btn btn-sm btn-primary me-2"
+          >
+            Login
+          </a>
+          <a
+            href="{% url 'register' %}"
+            class="btn btn-sm btn-secondary"
+          >
+            Register
+          </a>
+        {% endif %}
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar  -->
+  <div class="container-fluid flex-grow-1 px-0">
+    <div class="row g-0">
+      <nav class="col-auto bg-dark text-white min-vh-100 px-2">
+        <ul class="nav flex-column pt-4">
+          {% for item in item_list %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{{ item.link }}">
+                {{ item.item }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <!-- CONTENT - index.html ("/")...mybooks.html("/mybooks") -->
+      <main class="col px-4 py-4">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white text-center py-3 mt-auto">
+    <p class="mb-0">&copy; 2025 My Web Layout</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    crossorigin="anonymous"
+  ></script>
+
+</body>
+</html>
+
+
