@@ -1,3 +1,15 @@
+5/1
+VERSION 4
+-Corrected the book pictures
+-added side nav to about us but the font looks weird on side nav
+-cart update works now
+-resolved duplicate success banner
+-added "uploaded by:" to posted books and only user that uploaded can delete posted books.
+
+NEED
+-styling on all pages
+-side nav styling
+-not sure if you all wanted to add pictures of each of us for about us or not.
 ---------------------------------------------------------------------------------------------
 4/30
 
