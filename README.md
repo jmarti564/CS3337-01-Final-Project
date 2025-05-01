@@ -1,18 +1,9 @@
 ---------------------------------------------------------------------------------------------
-4/26 - 3pm
+4/30
 
-Revamp bookEx 4/26
-
-(1) About Us (incomplete - about.html)
-(2) Search a book
-(3) Reformat - bootstrap/js
-
-additional features
-(6) comments - incomplete
-(7) rate - not created
-(8) Favorite list - not created
-
-If someone else has a different project they would prefer to start from. Please clone and upload
+- "I had to audible and added comments, favorites, and a cart." 
+- "couldn’t get the book pictures to work"
+- "Registration is there too to create a user and the admin is the same one"
 
 ----------------------------------------------------------------------------------------------
 
