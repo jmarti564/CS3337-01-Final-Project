@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------------------------------
 5/4
 Version 5
-added
+added lines
 +Georgina styling edits
 +Darkmode/Lightmode option
 +Search a book function
