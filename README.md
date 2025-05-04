@@ -1,3 +1,25 @@
+---------------------------------------------------------------------------------------------
+5/4
+Version 5
+added
++Georgina styling edits
++Darkmode/Lightmode option
++Search a book function
++nav bar at the top
+
+changes/removed
+-base.css edits for container/modal/darkmode implementation. removed redundant code
+-urls.py and views.py path edits for displaybooks
+-base.html -redundancy lines of code + JS implementation -navigation bar/side bar serve as a template for every html
+-displaybooks.html
+-mybooks.html
+
+potential fixes/features
+-index.html update, add a home page to empty white/dark space in center of the home page
+-shopping cart success page when checking out
+-about us styling edits
+-anything
+---------------------------------------------------------------------------------------------
 5/1
 VERSION 4
 -Corrected the book pictures
