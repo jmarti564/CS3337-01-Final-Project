@@ -1,5 +1,31 @@
 ---------------------------------------------------------------------------------------------
 5/4
+Version 6 and Version 6 CS
+
+added
+
++ index.html - remove redundant nav/side bar code
++ index.html - home page book interface
+
+changes/removed
+
+- views.py - index routing update to receive books
+- aboutus.html - added banner image to remove empty space as well as contact info
+
+Version differences
+
+- bookExV6.zip - Original base.css styling
+- bookExV6 CS.zip - Revamped base.css styling removing redundant code
+
+try either or to see if any styling errors are occurring. If the problem persists, delete cookies to reset the local cache.
+
+potential fixes/features
+
+- shopping cart success page when checking out
+- about us styling edits
+- anything
+---------------------------------------------------------------------------------------------
+5/4
 Version 5
 
 added
