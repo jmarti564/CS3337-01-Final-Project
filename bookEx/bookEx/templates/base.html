@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <title>Book Exchange</title>
 
+    <link rel="icon" type="image/x-icon" href="{% static 'logo.png' %}">
+
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -14,7 +16,7 @@
 </head>
 <body>
     <!-- Changed: Added top gray bar with search and dark mode toggle (5/3) -->
-    <div id="top-bar" class="bg-light py-2 px-3 d-flex align-items-center">
+    <div id="top-bar" class="bg-light py-2 px-3 d-flex align-items-center low-border">
         <!-- Changed: Logo + name view (5/4) -->
         <a href="/" class="navbar-brand d-flex align-items-center p-0">
             <img
@@ -23,7 +25,7 @@
                     height="50"
             >
         </a>
-        <a href="/" class="nav-link text-white px-0 ms-2">Rainforest</a>
+        <a href="/" class="nav-link text-white px-0 ms-2">&nbspRainforest&nbsp</a>
 
         <!-- Changed: Search form now submits to displaybooks view (5/3) -->
         <form method="get" action="{% url 'displaybooks' %}" class="search-form flex-grow-1 mx-4 d-flex justify-content-center">
@@ -35,7 +37,7 @@
                 class="form w-75"
 
              >
-                <button class="btn btn-sm btn-primary" type="submit">Search</button>
+                <button class="btn btn-sm btn-success" type="submit">Search</button>
         </form>
 
         <!-- Changed: Dark mode toggle link added (5/3) -->
@@ -96,7 +98,7 @@
                 </form>
             </div>
         {% else %}
-            <a href="{% url 'login' %}" class="btn btn-sm btn-primary">Login</a>
+            <a href="{% url 'login' %}" class="btn btn-sm btn-success">Login</a>
         {% endif %}
     </div>
 
