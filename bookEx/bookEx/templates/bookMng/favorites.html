@@ -1,0 +1,36 @@
+<!-- 5/4 -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>My Favorites</h2>
+
+    {% if favorites %}
+        <div class="row">
+            {% for favorite in favorites %}
+                <div class="col-md-4">
+                    <div class="card" style="margin-bottom: 20px; padding: 10px;">
+
+                        {% if favorite.book.picture %}
+                            <img src="{{ favorite.book.picture.url }}" class="img-responsive" style="height: 200px; width: 100%;" alt="Book image">
+                        {% else %}
+                            <img src="/static/images/default-placeholder.png" class="img-responsive" style="height: 200px; width: 100%;" alt="Default image">
+                        {% endif %}
+
+                        <h4>{{ favorite.book.name }}</h4>
+                        <p>Author: {{ favorite.book.author }}</p>
+                        <p>Price: ${{ favorite.book.price }}</p>
+
+                        <form action="{% url 'toggle_favorite' favorite.book.id %}" method="post" style="margin-top: 10px;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Remove Favorite</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no favorite books yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

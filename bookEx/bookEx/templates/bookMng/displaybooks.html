@@ -1,0 +1,135 @@
+<!-- 5/4 -->
+{% extends "base.html" %}
+
+{% block title %}
+  {% if search_query %}
+    Showing {{ books|length }} result{% if books|length != 1 %}s{% endif %} for “{{ search_query }}”
+  {% else %}
+    All Books ({{ books|length }} total)
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h1 class="text">
+    {% if search_query %}
+      Showing {{ books|length }} result{% if books|length != 1 %}s{% endif %} for “{{ search_query }}”
+    {% else %}
+      All Books ({{ books|length }} total)
+    {% endif %}
+  </h1>
+
+  <div class="container">
+    {% if books %}
+      <div class="row">
+        {% for book in books %}
+          <div class="col-md-4 mb-4">
+            <div class="card p-2">
+              {% if book.picture %}
+                <img src="{{ book.picture.url }}" class="card-img-top" alt="Default book image"
+                     style="height: 200px; object-fit: cover;">
+              {% endif %}
+
+              <div class="card-body">
+                <h5 class="card-title">{{ book.name }}</h5>
+                <p class="card-text">Author: {{ book.author }}</p>
+                <p class="card-text">Price: ${{ book.price }}</p>
+                <p class="card-text"><strong>Uploaded by:</strong> {{ book.username.username }}</p>
+
+                <!-- View Details Button -->
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#bookModal{{ book.id }}">
+                  View Details
+                </button>
+
+                <!-- Add to Cart -->
+                <form method="post" action="{% url 'bookMng:add_to_cart' book.id %}" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                </form>
+
+                <!-- Toggle Favorite -->
+                <form method="post" action="{% url 'bookMng:toggle_favorite' book.id %}"
+                      style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-warning btn-sm">Toggle Favorite</button>
+                </form>
+
+                <!-- Delete Book (only if owner) -->
+                {% if book.username == user %}
+                  <form method="post" action="{% url 'bookMng:book_delete' book.id %}"
+                        style="display:inline;"
+                        onsubmit="return confirm('Are you sure you want to delete this book?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete Book</button>
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal (copied from mybooks.html) -->
+          <div class="modal fade" id="bookModal{{ book.id }}" tabindex="-1"
+               aria-labelledby="bookModalLabel{{ book.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="bookModalLabel{{ book.id }}">{{ book.name }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  {% if book.picture %}
+                    <img src="{{ book.picture.url }}" class="img-fluid mb-2" alt="{{ book.name }}">
+                  {% endif %}
+                  <p><strong>Author:</strong> {{ book.author }}</p>
+                  <p><strong>Price:</strong> ${{ book.price }}</p>
+                  <p><strong>Description:</strong> {{ book.description }}</p>
+
+                  <hr>
+                  <h5>Comments</h5>
+
+                  {% if book.comments.all %}
+                    <ul class="list-group">
+                      {% for comment in book.comments.all %}
+                        <li class="list-group-item">
+                          {{ comment.user.username }}
+                          ({{ comment.created_at|date:"M d, Y H:i" }}):<br>
+                          {{ comment.text }}
+                          {% if comment.user == user %}
+                            <form method="post"
+                                  action="{% url 'bookMng:delete_comment' comment.id %}"
+                                  class="d-inline float-end">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                          {% endif %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <p>No comments yet. Be the first!</p>
+                  {% endif %}
+
+                  <form method="post" action="{% url 'bookMng:add_comment' book.id %}">
+                    {% csrf_token %}
+                    <div class="form-group mt-3">
+                      <textarea name="text" class="form-control" rows="2"
+                                placeholder="Add a comment..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2">Post Comment</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary"
+                          data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% endfor %}
+      </div>  <!-- /.row -->
+    {% endif %}
+  </div>    <!-- /.container (ADDED!) -->
+
+{% endblock %}
