@@ -24,7 +24,7 @@ text-align: center;
 }
 
 .low-border {
-border-bottom: 2px solid #198754;
+border-bottom: 1px solid #198754;
 }
 
 .banner h1 {
@@ -63,7 +63,7 @@ font-size: 18px;
 }
 
 .sidebar ul li a:hover {
-text-decoration: underline;
+text-decoration: none;
 }
 
 /* Main Content */
@@ -77,11 +77,11 @@ margin-bottom: 20px;
 }
 
 .content h2 {
-color: #192d15;
+/*color: #192d15;*/
 }
 
 .content h1 {
-color: #192d15;
+/*color: #192d15;*/
 /*font-weight: bold;*/
 }
 
@@ -91,8 +91,8 @@ line-height: 1.6;
 }
 
 .nav-item :hover {
-background-color: /*#e2f2e0*/#198754;
-color: white;
+  background-color: #0000001f !important;
+  border-right: 5px solid #198754;
 }
 
 input[type=text] {

@@ -14,6 +14,7 @@
         {% if books %}
             <div class="row">
                 {% for book in books %}
+                {% if book.username.username == user.username %}
                     <div class="col-md-4 mb-4">
                         <div class="card p-2">
                             {% if book.picture %}
@@ -128,6 +129,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         {% else %}
