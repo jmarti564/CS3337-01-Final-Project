@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <!-- Original page title (5/5) -->
+<div class="content">
+  <h1><br>Welcome to our Book Exchange System!</h1>
+
+  <!-- 5/4: Display book cover cards on home page to utilize space like displaybooks.html -->
+  <div class="container">
+    <div class="row">
+      {% for book in books %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            {% if book.picture %}
+                <img src="{{ book.picture.url }}" class="card-img-top" alt="Default book image"
+                     style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+              <!-- 5/5: Use 'name' field instead of 'title' -->
+              <h5 class="card-title">{{ book.name }}</h5>
+              <p class="card-text">Author: {{ book.author }}</p>
+              <p class="card-text">Price: ${{ book.price }}</p>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-white">No books available at the moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
