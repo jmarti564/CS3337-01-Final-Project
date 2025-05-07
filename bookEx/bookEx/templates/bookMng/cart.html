@@ -1,0 +1,49 @@
+<!-- 5/4 -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Shopping Cart</h2>
+
+    {% if cart_items %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.book.name }}</td>
+                    <td>${{ item.book.price }}</td>
+                    <td>
+                        <form method="post" action="{% url 'bookMng:update_cart' item.id %}">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control" style="width: 70px;">
+                            <button type="submit" class="btn btn-primary btn-sm mt-1">Update</button>
+                        </form>
+                    </td>
+                    <td>${{ item.total_price }}</td>
+                    <td>
+                        <form method="post" action="{% url 'bookMng:update_cart' item.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantity" value="0">
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h4>Grand Total: ${{ total_price }}</h4>
+
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}
